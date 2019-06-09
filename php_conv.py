@@ -25,7 +25,7 @@ def load_dict(file_path):
     conv['length'] = sorted(list(conv['dict'].keys()), reverse=True)
     return conv
 
-if __name__ == '__main__':
+def main():
     with open('./ZhConversion.php', 'r', encoding='UTF-8') as fin:
         data = fin.read()
         make_dict(data, hant_pattern, './zhhans2t.txt')
@@ -39,3 +39,6 @@ if __name__ == '__main__':
     
     os.remove('./zhhans2t.txt')
     os.remove('./zhhant2s.txt')
+
+if __name__ == '__main__':
+    main()
