@@ -1,4 +1,6 @@
 # ZhConverter
+[![Build Status](https://travis-ci.org/penut85420/ZhConverter.svg?branch=master)](https://travis-ci.org/penut85420/ZhConverter)
+
 + 使用 [MediaWiki](https://www.mediawiki.org/wiki/Download) 上的 `ZHConversion.php` 完成的簡繁轉換
 
 ## Preparation
