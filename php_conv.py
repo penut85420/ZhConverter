@@ -1,4 +1,5 @@
 import re
+import os
 import pickle as pk
 
 hant_pattern = re.compile(r'public static \$zh2Hant = \[([^]]*)]', re.M)
@@ -29,9 +30,12 @@ if __name__ == '__main__':
         data = fin.read()
         make_dict(data, hant_pattern, './zhhans2t.txt')
         make_dict(data, hans_pattern, './zhhant2s.txt')
-
-    with open('./zhhans2t.pkl', 'wb') as pkl:
-        pk.dump(load_dict('./zhhans2t.txt'), pkl)
-
-    with open('./zhhant2s.pkl', 'wb') as pkl:
-        pk.dump(load_dict('./zhhant2s.txt'), pkl)
+    
+    zhhanz = dict()
+    zhhanz['s2t'] = load_dict('./zhhans2t.txt')
+    zhhanz['t2s'] = load_dict('./zhhant2s.txt')
+    with open('./zhhanz.pkl', 'wb') as pkl:
+        pk.dump(zhhanz, pkl)
+    
+    os.remove('./zhhans2t.txt')
+    os.remove('./zhhant2s.txt')
