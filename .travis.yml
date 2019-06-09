@@ -1,0 +1,10 @@
+language: python
+
+python:
+  - "3.7"
+
+script: true
+  - nosetests --with-coverage --coverage report
+
+script:
+  - python test_conv.py
