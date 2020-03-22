@@ -2,7 +2,7 @@ import unittest
 from zhhanz_conv import ZhhanzMan
 import php_conv
 
-class TestCase(unittest.TestCase):    
+class TestCase(unittest.TestCase):
     def test_s2t(self):
         zm = ZhhanzMan()
         self.assertEqual(zm.trans_s2t('硬盘上无法修复的坏轨，'), '硬盤上無法修復的壞軌，')
@@ -26,7 +26,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(zm.trans_s2t('是消歧义页面'), '是消歧義頁面')
         self.assertEqual(zm.trans_s2t('陈公乾生'), '陳公乾生')
 
-    
+
     def test_t2s(self):
         zm = ZhhanzMan()
         self.assertEqual(zm.trans_t2s('硬盤上無法修復的壞軌，'), '硬盘上无法修复的坏轨，')
@@ -51,5 +51,5 @@ class TestCase(unittest.TestCase):
         self.assertEqual(zm.trans_t2s('陳公乾生'), '陈公乾生')
 
 if __name__ == '__main__':
-    php_conv.main()
+    php_conv.conv()
     unittest.main()

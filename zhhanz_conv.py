@@ -1,10 +1,28 @@
+import os
 import pickle as pk
 
 class ZhhanzMan:
     def __init__(self):
-        with open('./zhhanz.pkl', 'rb') as pkl:
+        self.pkl_path = self.get_pkl_path()
+        self.check_pkl()
+        with open(self.pkl_path, 'rb') as pkl:
             self.dict = pk.load(pkl)
-    
+
+    def check_pkl(self):
+        if not os.path.exists(self.pkl_path):
+            import sys
+            sys.path.append(self.get_dirpath())
+            from php_conv import conv
+            conv()
+
+    def get_dirpath(self):
+        pardir = os.path.abspath(__file__)
+        return os.path.dirname(pardir)
+
+    def get_pkl_path(self):
+        pardir = self.get_dirpath()
+        return os.path.join(pardir, 'zhhanz.pkl')
+
     def max_match(self, sent, d):
         for n in d['length']:
             seg = sent[:n]
@@ -12,13 +30,19 @@ class ZhhanzMan:
                 return d['dict'][n].get(seg)
             n -= 1
         return sent[0]
-    
+
+    def s2t(self, sent):
+        return self.trans_s2t(sent)
+
+    def t2s(self, sent):
+        return self.trans_t2s(sent)
+
     def trans_s2t(self, sent):
         return self.trans(sent, self.dict['s2t'])
-    
+
     def trans_t2s(self, sent):
         return self.trans(sent, self.dict['t2s'])
-    
+
     def trans(self, sent, d):
         rtn = list()
         idx = 0
@@ -47,17 +71,17 @@ if __name__ == '__main__':
         '也有一些博客專注艺术、攝影、视频、音乐、播客等各種主題。',
         '網誌是社会媒体网络的一部分。',
         '皇后在后面吃面',
-        '艦隊Collection 是日本网络游戏', 
-        '是消歧义页面', 
+        '艦隊Collection 是日本网络游戏',
+        '是消歧义页面',
         '陈公乾生'
     ]
     t2s = list()
     zm = ZhhanzMan()
-    with open('s2t', 'w', encoding='UTF-8') as fout:
+    with open('s2t.txt', 'w', encoding='UTF-8') as fout:
         for ss in s2t:
             t2s.append(zm.trans_s2t(ss))
             print(t2s[-1], file=fout)
-    
-    with open('t2s', 'w', encoding='UTF-8') as fout:
+
+    with open('t2s.txt', 'w', encoding='UTF-8') as fout:
         for ss in t2s:
             print(zm.trans_t2s(ss), file=fout)
